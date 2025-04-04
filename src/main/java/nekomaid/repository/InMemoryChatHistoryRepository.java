@@ -1,11 +1,17 @@
 package nekomaid.repository;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Component
+@RequiredArgsConstructor
 public class InMemoryChatHistoryRepository implements ChatHistoryRepository{
-    private Map<String,List<String>> chatHistory;
+    private Map<String,List<String>> chatHistory=new HashMap<>();
 
     @Override
     public void save(String type, String chatId) {

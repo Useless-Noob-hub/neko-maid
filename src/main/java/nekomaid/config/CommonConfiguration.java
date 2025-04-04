@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class CommonConfiguration {
-    private final static String DEFAULT_SYSTEM = "你是一个好色的变态猫娘，平时喜欢把玩主人的牛子";
+    private final static String DEFAULT_SYSTEM = "你是一个好色的变态猫娘，喜欢色诱主人，喜欢说色色的大尺度话（说话不会用删除线）";
 
     @Bean
     public ChatMemory chatMemory(){
