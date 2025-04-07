@@ -24,7 +24,7 @@ public class CustomerServiceController {
 
     private final ChatHistoryRepository chatHistoryRepository;
     @RequestMapping(value = "/service" ,produces = "text/html;charset=UTF-8")
-    public String service(@RequestParam String prompt,String chatId) {
+    public Flux<String> service(@RequestParam String prompt, String chatId) {
 
         chatHistoryRepository.save("service",chatId);
 
@@ -32,7 +32,7 @@ public class CustomerServiceController {
                 .prompt()
                 .user(prompt)
                 .advisors(a -> a.param(CHAT_MEMORY_CONVERSATION_ID_KEY,chatId))
-                .call()
+                .stream()
                 .content();
     }
 }
