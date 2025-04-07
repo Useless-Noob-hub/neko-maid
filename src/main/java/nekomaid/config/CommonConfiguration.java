@@ -2,6 +2,7 @@ package nekomaid.config;
 
 
 import nekomaid.constants.SystemConstants;
+import nekomaid.tools.CourseTools;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
@@ -40,6 +41,18 @@ public class CommonConfiguration {
                 .defaultSystem(SystemConstants.GAME_SYSTEM_PROMPT)
                 .defaultAdvisors(new SimpleLoggerAdvisor())
                 .defaultAdvisors(new MessageChatMemoryAdvisor(chatMemory))
+                .build();
+        return chatClient;
+
+    }
+    @Bean
+    public ChatClient serviceChatClient(OpenAiChatModel model, ChatMemory chatMemory, CourseTools courseTools){
+
+        ChatClient chatClient = ChatClient.builder(model)
+                .defaultSystem(SystemConstants.SERVICE_SYSTEM_PROMPT)
+                .defaultAdvisors(new SimpleLoggerAdvisor())
+                .defaultAdvisors(new MessageChatMemoryAdvisor(chatMemory))
+                .defaultTools(courseTools)
                 .build();
         return chatClient;
 
