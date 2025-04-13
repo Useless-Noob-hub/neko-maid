@@ -14,6 +14,7 @@ import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.InMemoryChatMemory;
 import org.springframework.ai.chat.observation.ChatModelObservationConvention;
+import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.ai.model.SimpleApiKey;
 import org.springframework.ai.model.tool.ToolCallingManager;
 import org.springframework.ai.openai.OpenAiChatModel;
@@ -47,14 +48,13 @@ public class CommonConfiguration {
     }
 
     @Bean
-    public ChatClient chatClient(OpenAiChatModel model, ChatMemory chatMemory){
-
-        ChatClient chatClient = ChatClient.builder(model)
+    public ChatClient chatClient(AlibabaOpenAiChatModel model, ChatMemory chatMemory) {
+        return ChatClient.builder(model) // 创建ChatClient工厂实例
+                .defaultOptions(ChatOptions.builder().model("qwen-omni-turbo").build())
                 .defaultSystem(SystemConstants.CHAT_SYSTEM_PROMPT)
-                .defaultAdvisors(new SimpleLoggerAdvisor())
+                .defaultAdvisors(new SimpleLoggerAdvisor()) // 添加默认的Advisor,记录日志
                 .defaultAdvisors(new MessageChatMemoryAdvisor(chatMemory))
-                .build();
-        return chatClient;
+                .build(); // 构建ChatClient实例
 
     }
     @Bean

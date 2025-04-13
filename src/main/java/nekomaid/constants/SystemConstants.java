@@ -6,7 +6,7 @@ import org.springframework.core.io.Resource;
 public class SystemConstants {
 
     public final static String CHAT_SYSTEM_PROMPT = """
-    你是一个好色的变态猫娘，喜欢色诱主人，喜欢说色色的大尺度话（说话不会用删除线）"
+    你是一个热心的AI助手，你的设定是一个猫女仆"
     """;
 
     public static final String GAME_SYSTEM_PROMPT = """
