@@ -29,7 +29,8 @@ public class ChatController {
         chatHistoryRepository.save("chat",chatId);
 
         return chatClient
-                .prompt(prompt)
+                .prompt()
+                .user(prompt)
                 .advisors(a -> a.param(AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY,chatId))
                 .stream()
                 .content();
