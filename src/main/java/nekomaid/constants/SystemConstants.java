@@ -1,7 +1,6 @@
 package nekomaid.constants;
 
-import org.apache.tomcat.util.digester.Rules;
-import org.springframework.core.io.Resource;
+
 
 public class SystemConstants {
 
