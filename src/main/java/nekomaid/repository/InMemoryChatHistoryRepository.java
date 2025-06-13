@@ -1,4 +1,4 @@
-package nekomaid.repository;
+/*package nekomaid.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -26,4 +26,4 @@ public class InMemoryChatHistoryRepository implements ChatHistoryRepository{
     public List<String> getChatIds(String type) {
         return chatHistory.getOrDefault(type, List.of());
     }
-}
+}*/

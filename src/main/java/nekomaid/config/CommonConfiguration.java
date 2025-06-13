@@ -90,7 +90,7 @@ public class CommonConfiguration {
                         new MessageChatMemoryAdvisor(chatMemory),
                         new QuestionAnswerAdvisor(vectorStore,
                                 SearchRequest.builder()
-                                        .similarityThreshold(0.6)
+                                        .similarityThreshold(0.6d   )
                                         .topK(2)
                                         .build())
 
@@ -117,7 +117,7 @@ public class CommonConfiguration {
         RestClient.Builder restClientBuilder = restClientBuilderProvider.getIfAvailable(RestClient::builder);
         WebClient.Builder webClientBuilder = webClientBuilderProvider.getIfAvailable(WebClient::builder);
         OpenAiApi openAiApi = OpenAiApi.builder().baseUrl(baseUrl).apiKey(new SimpleApiKey(apiKey)).headers(CollectionUtils.toMultiValueMap(connectionHeaders)).completionsPath(chatProperties.getCompletionsPath()).embeddingsPath("/v1/embeddings").restClientBuilder(restClientBuilder).webClientBuilder(webClientBuilder).responseErrorHandler(responseErrorHandler).build();
-        AlibabaOpenAiChatModel chatModel = AlibabaOpenAiChatModel.builder().openAiApi(openAiApi).defaultOptions(chatProperties.getOptions()).toolCallingManager(toolCallingManager).retryTemplate(retryTemplate).observationRegistry((ObservationRegistry)observationRegistry.getIfUnique(() -> ObservationRegistry.NOOP)).build();
+        AlibabaOpenAiChatModel chatModel = AlibabaOpenAiChatModel.builder().openAiApi(openAiApi).defaultOptions(chatProperties.getOptions()).toolCallingManager(toolCallingManager).retryTemplate(retryTemplate).observationRegistry((  ObservationRegistry)observationRegistry.getIfUnique(() -> ObservationRegistry.NOOP)).build();
         Objects.requireNonNull(chatModel);
         observationConvention.ifAvailable(chatModel::setObservationConvention);
         return chatModel;
