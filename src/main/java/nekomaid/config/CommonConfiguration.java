@@ -60,24 +60,22 @@ public class CommonConfiguration {
     @Bean
     public ChatClient gameChatClient(OpenAiChatModel model, ChatMemory chatMemory){
 
-        ChatClient chatClient = ChatClient.builder(model)
+        return ChatClient.builder(model)
                 .defaultSystem(SystemConstants.GAME_SYSTEM_PROMPT)
                 .defaultAdvisors(new SimpleLoggerAdvisor())
                 .defaultAdvisors(new MessageChatMemoryAdvisor(chatMemory))
                 .build();
-        return chatClient;
 
     }
     @Bean
     public ChatClient serviceChatClient(AlibabaOpenAiChatModel  model, ChatMemory chatMemory, CourseTools courseTools){
 
-        ChatClient chatClient = ChatClient.builder(model)
+        return ChatClient.builder(model)
                 .defaultSystem(SystemConstants.SERVICE_SYSTEM_PROMPT)
                 .defaultAdvisors(new SimpleLoggerAdvisor())
                 .defaultAdvisors(new MessageChatMemoryAdvisor(chatMemory))
                 .defaultTools(courseTools)
                 .build();
-        return chatClient;
 
     }
     @Bean
@@ -122,7 +120,7 @@ public class CommonConfiguration {
         RestClient.Builder restClientBuilder = restClientBuilderProvider.getIfAvailable(RestClient::builder);
         WebClient.Builder webClientBuilder = webClientBuilderProvider.getIfAvailable(WebClient::builder);
         OpenAiApi openAiApi = OpenAiApi.builder().baseUrl(baseUrl).apiKey(new SimpleApiKey(apiKey)).headers(CollectionUtils.toMultiValueMap(connectionHeaders)).completionsPath(chatProperties.getCompletionsPath()).embeddingsPath("/v1/embeddings").restClientBuilder(restClientBuilder).webClientBuilder(webClientBuilder).responseErrorHandler(responseErrorHandler).build();
-        AlibabaOpenAiChatModel chatModel = AlibabaOpenAiChatModel.builder().openAiApi(openAiApi).defaultOptions(chatProperties.getOptions()).toolCallingManager(toolCallingManager).retryTemplate(retryTemplate).observationRegistry((  ObservationRegistry)observationRegistry.getIfUnique(() -> ObservationRegistry.NOOP)).build();
+        AlibabaOpenAiChatModel chatModel = AlibabaOpenAiChatModel.builder().openAiApi(openAiApi).defaultOptions(chatProperties.getOptions()).toolCallingManager(toolCallingManager).retryTemplate(retryTemplate).observationRegistry(observationRegistry.getIfUnique(() -> ObservationRegistry.NOOP)).build();
         Objects.requireNonNull(chatModel);
         observationConvention.ifAvailable(chatModel::setObservationConvention);
         return chatModel;
