@@ -81,23 +81,28 @@ public class CommonConfiguration {
 
     }
     @Bean
-    public ChatClient pdfChatClient(AlibabaOpenAiChatModel  model, ChatMemory chatMemory, VectorStore vectorStore){
+    public ChatClient pdfChatClient(
+            AlibabaOpenAiChatModel  model,
+            ChatMemory chatMemory,
+            VectorStore vectorStore){
 
-        ChatClient chatClient = ChatClient.builder(model)
+        //  相似度阈值
+        // 返回的相似度最高的几个结果
+        return ChatClient.builder(model)
                 .defaultSystem(SystemConstants.PDF_SYSTEM_PROMPT)
                 .defaultAdvisors(
-                        new SimpleLoggerAdvisor(),
                         new MessageChatMemoryAdvisor(chatMemory),
-                        new QuestionAnswerAdvisor(vectorStore,
+                        new SimpleLoggerAdvisor(),
+                        new QuestionAnswerAdvisor(
+                                vectorStore,
                                 SearchRequest.builder()
-                                        .similarityThreshold(0.6d   )
-                                        .topK(2)
+                                        .similarityThreshold(0.5d)//  相似度阈值
+                                        .topK(2)// 返回的相似度最高的几个结果
                                         .build())
 
                 )
 
                 .build();
-        return chatClient;
 
     }
     @Bean

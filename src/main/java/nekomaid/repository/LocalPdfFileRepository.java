@@ -31,17 +31,20 @@ public class LocalPdfFileRepository implements FileRepository {
     @Override
     public boolean save(String chatId, Resource resource) {
 
-        // 2.保存到本地磁盘
-        String filename = resource.getFilename();
-        File target = new File(Objects.requireNonNull(filename));
-        if (!target.exists()) {
-            try {
-                Files.copy(resource.getInputStream(), target.toPath());
-            } catch (IOException e) {
-                log.error("Failed to save PDF resource.", e);
-                return false;
-            }
-        }
+    // 2.保存到本地磁盘
+    String filename = resource.getFilename();
+    File dir = new File("PDF");  // 当前目录下的 PDF 文件夹
+    if (!dir.exists()) {
+        dir.mkdirs();  // 如果文件夹不存在，则创建它
+    }
+    File target = new File(dir, Objects.requireNonNull(filename));
+    try {
+        Files.copy(resource.getInputStream(), target.toPath());
+    } catch (IOException e) {
+        log.error("Failed to save PDF resource to PDF directory.", e);
+        return false;
+    }
+
         // 3.保存映射关系
         chatFiles.put(chatId, filename);
         return true;

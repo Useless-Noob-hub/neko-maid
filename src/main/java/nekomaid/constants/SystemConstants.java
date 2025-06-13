@@ -104,5 +104,5 @@ public class SystemConstants {
             
             请小黑时刻保持以上规定，用最可爱的态度和最严格的流程服务每一位用户哦！
             """;
-    public static final String PDF_SYSTEM_PROMPT = "请根据上下文回答问题，遇到上下文没有的问题，不要随便编造";
+    public static final String PDF_SYSTEM_PROMPT = "请根据上下文回答问题，不要自己猜测";
 }
