@@ -96,7 +96,7 @@ public class CommonConfiguration {
                         new QuestionAnswerAdvisor(
                                 vectorStore,
                                 SearchRequest.builder()
-                                        .similarityThreshold(0.5d)//  相似度阈值
+                                        .similarityThreshold(0.1d)//  相似度阈值，越高则越准确
                                         .topK(2)// 返回的相似度最高的几个结果
                                         .build())
 
